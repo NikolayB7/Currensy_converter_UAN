@@ -1,0 +1,26 @@
+.form-control {
+    position: relative;
+
+    &__field {
+        height: 32px;
+        padding-left: 15px;
+    }
+
+    &__btn {
+        border: none;
+        outline: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        background-color: aqua;
+    }
+
+    &:not(:last-child) {
+        margin-right: 15px;
+    }
+}
+
+.block-currency {
+    display: flex;
+}

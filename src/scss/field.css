@@ -1,0 +1,1 @@
+.form-control{position:relative}.form-control__field{height:32px;padding-left:15px}.form-control__btn{border:none;outline:none;position:absolute;top:0;bottom:0;right:0;background-color:aqua}.form-control:not(:last-child){margin-right:15px}.block-currency{display:flex}
