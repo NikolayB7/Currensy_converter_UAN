@@ -21,8 +21,8 @@ const Overlay = () => {
         <div className={stateModal ? 'overlay active' : 'overlay'}>
             <div className="overlay__shadow" onClick={() => handlerVisibleModal()}></div>
             <div className="overlay__body">
-                <SearchField setSearch={setSearch}></SearchField>
-                <CurrensyList searchString={search}></CurrensyList>
+                <SearchField setSearch={setSearch} searchString={search}></SearchField>
+                <CurrensyList searchString={search} setSearch={setSearch}></CurrensyList>
             </div>
 
         </div>

@@ -3,9 +3,10 @@ import CurrencyServise from '../Api/currency';
 
 import { useDispatch } from 'react-redux';
 import { setCurrency } from '../store/currency/selectedCurrencySlice';
+import { setModal } from '../store/modal/modalSlice';
 
 
-const CurrensyList = ({ searchString }) => {
+const CurrensyList = ({ searchString, setSearch }) => {
     const CurrencyServiseRef = useRef(new CurrencyServise());
 
     const [list, setList] = useState([])
@@ -14,12 +15,14 @@ const CurrensyList = ({ searchString }) => {
 
     const handleCurrencyChange = (obj) => {
         dispatch(setCurrency(obj));
+        dispatch(setModal(false));
+        setSearch('')
     };
 
     useEffect(() => {
         const getCurrency = () => {
             CurrencyServiseRef.current.getAllCurrency()
-                // @TODO перенести в api файл
+                // TODO перенести в api файл
                 .then(response => {
                     setList(response)
                     const filteredArr = response.filter(obj => obj.txt.toLowerCase().includes(searchString));
