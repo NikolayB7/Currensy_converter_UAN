@@ -1,0 +1,53 @@
+ .selected-currency{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    &__wrapper{
+        width: 400px;
+    }
+    &__title{
+        flex: 0 0 100%;
+        text-align: left;
+    }
+    &__field{
+        flex: 0 0 100%;
+    }
+    &__toggle{
+        cursor: pointer;
+        padding: 0;
+        outline: none;
+        background: transparent;
+        border-color: transparent;
+        color: $base-color;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        img{
+            margin-right: 10px;
+            width: 35px;
+            height: 25px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        &:hover{
+            color: $hover-color;
+        }
+    }
+ }
+
+ .form-control{
+    width: 100%;
+    padding-left: 15px;
+    background-color: $black;
+    color: #fff;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    height: 50px;
+    font-family: "Karla";
+    font-size: 30px;
+    &_search{
+        background: rgb(60, 60, 60);
+        margin-bottom: 20px;
+        font-size: 25px;
+    }
+ }

@@ -1,10 +1,10 @@
 import React from 'react';
 
-const SearchField = ({ setSearch }) => {
+const SearchField = ({ setSearch, search }) => {
 
     return (
         <>
-            <input type="search" onChange={e => setSearch(e.target.value)} />
+            <input className='form-control form-control_search' type="search" value={search} onChange={e => setSearch(e.target.value)} />
         </>
     );
 };

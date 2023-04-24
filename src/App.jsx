@@ -1,22 +1,21 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
-import './scss/index.scss'
+import './assets/scss/index.scss'
 import PriceField from './Components/Ui/PriceField'
 
 import Overlay from './Components/Overlay'
 
 function App() {
-  const [currentCur, setCurrentCur] = useState({})
-  const [visibleList, setVisibleList] = useState(!false)
 
   return (
     <div className="App">
-      <div className="block-currency">
-        <PriceField setVisibleList={setVisibleList}></PriceField>
-        <PriceField setVisibleList={setVisibleList} currentCur={currentCur}></PriceField>
+      <div className="page-title">Офіційний курс гривні <br /> щодо іноземних валют (НБУ)</div>
+      <div className="selected-currency__wrapper">
+        <PriceField defaultCur={false}></PriceField>
+        <PriceField defaultCur={true}></PriceField>
       </div>
-      <Overlay setCurrentCur={setCurrentCur} setVisiblePopUp={setVisibleList} visiblePop={visibleList}></Overlay>
+      <Overlay></Overlay>
     </div >
   )
 }

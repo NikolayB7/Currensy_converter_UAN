@@ -1,0 +1,81 @@
+@mixin container {
+    display: block;
+    margin: 0 auto;
+    padding: 0 15px;
+    max-width: 1520px;
+    width: 80%;
+    min-width: 320px;
+
+    @media (max-width: 1300px) {
+        width: 90%;
+    }
+    //@media (max-width: 1699px) {
+    //    width: calc(100% - 320px);
+    //}
+    //@media (max-width: 1500px) {
+    //    width: calc(100% - 170px);
+    //}
+    //@media (max-width: 1299px) {
+    //    width: calc(100% - 80px);
+    //}
+    //@media (max-width: 575px) {
+    //    width: calc(100% - 30px);
+    //    //padding: 0 15px;
+    //}
+    //@media (max-width: 359px) {
+    //
+    //}
+}
+
+@mixin mmax($width, $height: 0) {
+    $w: $width + px;
+    $h: $height + px;
+
+    @if $height==0 {
+        @media all and (max-width: $w) {
+            @content;
+        }
+    }
+
+    @else {
+        @media all and (max-width: $w) and (max-height: $h) {
+            @content;
+        }
+    }
+}
+
+
+@mixin font($fname, $fstyle, $fweight, $furl) {
+    @font-face {
+        font-family: $fname;
+        font-style: $fstyle;
+        font-weight: $fweight;
+        // font-display: swap; // Uncomment to initially display system fonts
+        src: local($fname), url($furl) format("woff2");
+    }
+}
+
+
+@mixin scroll{
+    /* width */
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+  
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #6F6F6F;
+    }
+  
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #DCE4E1;
+      border-radius: 10px;
+    }
+  
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #DCE4E1;
+    }
+  }
