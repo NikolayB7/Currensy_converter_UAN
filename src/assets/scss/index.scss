@@ -93,7 +93,9 @@ $gutter: $grid-gutter-width;
     line-height: 1.65;
     overflow-x: hidden;
     color: $textcolor;
-    background-color: #484848;
+    // background-color: #484848;
+    // background-color: #0c2724;
+    background-color: #424442;
   }
   
   %extend-color {
@@ -170,4 +172,13 @@ $gutter: $grid-gutter-width;
   margin-bottom: 40px;
   font-size: 32px;
   line-height: 1;
+}
+
+.loader{
+  svg{
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    display:inline-block;
+  }
 }

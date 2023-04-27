@@ -2,15 +2,25 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
+    &:not(:last-child){
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #888;
+    }
     &__wrapper{
         width: 400px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        padding: 15px;
+        border-radius: 15px;
     }
     &__title{
         flex: 0 0 100%;
         text-align: left;
     }
     &__field{
+        margin-bottom: 5px;
         flex: 0 0 100%;
+        display: flex;
     }
     &__toggle{
         cursor: pointer;
@@ -45,6 +55,11 @@
     height: 50px;
     font-family: "Karla";
     font-size: 30px;
+    box-shadow: 5px 5px 5px 0px rgba(45, 44, 44, 0.75);
+    transition: all 0.5s;
+    &:focus{
+        border: 1px solid $base-color;
+    }
     &_search{
         background: rgb(60, 60, 60);
         margin-bottom: 20px;

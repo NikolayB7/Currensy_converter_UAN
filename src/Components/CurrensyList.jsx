@@ -16,7 +16,7 @@ const CurrensyList = ({ searchString, setSearch }) => {
     const handleCurrencyChange = (obj) => {
         dispatch(setCurrency(obj));
         dispatch(setModal(false));
-        setSearch('')
+        // setSearch('')
     };
 
     useEffect(() => {
