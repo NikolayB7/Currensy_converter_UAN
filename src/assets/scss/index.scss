@@ -1,0 +1,184 @@
+@import 'mixins';
+
+@include font("PoiretOne", normal, 400, "../fonts/PoiretOne-Regular.ttf");
+@include font("Karla", normal, 700, "../fonts/Karla-Bold.ttf");
+@include font("Karla", normal, 500, "../fonts/Karla-Medium.ttf");
+@include font("Karla", normal, 400, "../fonts/Karla-Regular.ttf");
+
+
+@import 'color';
+@import 'overlay';
+@import 'field';
+
+$accent: #000000; // Accent Color
+$fontsize: 16px; // Body Font Size
+$textcolor: $base-color; // Text Color
+$system: -apple-system, BlinkMacSystemFont, Arial, sans-serif; // System Font Family
+$font: "PoiretOne", sans-serif; // Roboto Font Family
+
+// Bootstrap compatible gutter variable => $gutter
+$grid-gutter-width: 20px;
+$gutter: $grid-gutter-width;
+
+
+
+
+::placeholder {
+    color: #666;
+  }
+  
+  ::selection {
+    background-color: $accent;
+    color: #fff;
+  }
+  
+  /*Remove Chrome autocomplete style*/
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    border: none;
+  }
+  
+  /*hide arrow input type number*/
+  
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+  
+  input,
+  textarea {
+    outline: none;
+  
+    &:focus:required:invalid {
+      border-color: red;
+    }
+  
+    &:required:valid {
+      border-color: green;
+    }
+  }
+  
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  b,
+  strong {
+    font-weight: bold;
+  }
+  
+  ul,
+  ol {
+    //padding-left: 0;
+    margin: 0;
+  }
+  
+  body {
+    font-family: $font;
+    font-weight: 400;
+    font-size: $fontsize;
+    min-width: 320px;
+    position: relative;
+    line-height: 1.65;
+    overflow-x: hidden;
+    color: $textcolor;
+    // background-color: #484848;
+    // background-color: #0c2724;
+    background-color: #424442;
+  }
+  
+  %extend-color {
+    --colorBase: #6f6f6f;
+    --colorBg: #ffffff;
+    --colorSecondary: #616161;
+    --colorCheck: #dce4e1;
+  
+    &.bg-dark {
+      --colorBase: #ffffff;
+      --colorBg: #616161;
+      --colorSecondary: rgba(255, 255, 255, 0.6);
+      --colorCheck: rgba(255, 255, 255, 0.35);
+    }
+  }
+  
+  .container {
+    @include container;
+  }
+  
+  .container-fluid {
+    display: block;
+    margin: 0 auto;
+    padding: 0 50px;
+  
+    max-width: 1920px;
+    min-width: 320px;
+  
+    @include mmax(767) {
+      padding: 0 15px;
+    }
+  }
+
+.currensy-list {
+    padding-left: 0;
+
+    &__item {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        cursor: pointer;
+        list-style-type: none;
+        transition: all 0.3s;
+
+        &:hover {
+            color: rgb(255, 238, 0)
+        }
+
+        &:not(:last-child) {
+            margin-bottom: 15px;
+        }
+    }
+
+    &__flag {
+        margin-right: 15px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            width: 47px;
+            height: 47px;
+            object-fit: cover;
+        }
+    }
+}
+
+.page-title{
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 32px;
+  line-height: 1;
+}
+
+.loader{
+  svg{
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    display:inline-block;
+  }
+}

@@ -1,40 +1,65 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { setModal } from '../../store/modal/modalSlice';
+<<<<<<< HEAD
+const PriceField = ({ mutableField, selected }) => {
 
-const PriceField = () => {
+    const [value, setValue] = useState(1)
 
-    const selectedCurrency = useSelector((state) => state.currency.value);
+    useEffect(() => {
+        if (mutableField) {
+            setValue(selected.rate)
+        }
+    }, [selected])
 
-    const dispatch = useDispatch();
-    const handlerVisibleModal = () => {
-        dispatch(setModal(true))
+
+    function handleChange(event) {
+        if (/^\d*$/.test(event.target.value)) {
+            setValue(event.target.value);
+        }
+
+        // if (mutableField) {
+        //     console.log(value);
+        // } else {
+        //     console.log(selected.rate);
+        //     setValue()
+        // }
+=======
+const PriceField = ({ defaultValue, selected }) => {
+
+    const [value, setValue] = useState(1)
+
+    // useEffect(() => {
+    //     setValue(selected.rate)
+    // }, [])
+
+    function calculatePrice(e) {
+        if (defaultValue) {
+            setValue(e.target.value)
+        } else {
+            setValue(selected.rate)
+        }
+
+>>>>>>> e6953e9712b448051a905577f81eb88224276d66
     }
 
-    return (
-        <div>
-            <div className="title">
-                {selectedCurrency
-                    ?
-                    selectedCurrency.txt
-                    :
-                    'Українська гривня'
-                }
-            </div>
-            <div className='form-control'>
-                <input className='form-control__field' type="text" />
-                <button onClick={() => handlerVisibleModal()} className='form-control__btn'>
-                    {selectedCurrency
-                        ?
-                        <img src={`https://flagsapi.com/${selectedCurrency.cc.slice(0, -1)}/flat/64.png`}></img>
-                        :
-                        <img src={`https://flagsapi.com/UA/flat/64.png`}></img>
-                    }
 
-                </button>
-            </div>
-        </div>
+
+    return (
+        <>
+            <input
+                className='form-control'
+<<<<<<< HEAD
+                type="text"
+                value={value}
+                onInput={handleChange}
+=======
+                type="number"
+                value={value}
+                pattern="[0-9]"
+                onInput={(event) => calculatePrice(event)}
+>>>>>>> e6953e9712b448051a905577f81eb88224276d66
+            />
+        </>
     );
 };
 
