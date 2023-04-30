@@ -4,6 +4,7 @@ import CurrencyServise from '../Api/currency';
 import { useDispatch } from 'react-redux';
 import { setCurrency } from '../store/currency/selectedCurrencySlice';
 import { setModal } from '../store/modal/modalSlice';
+import Bookmark from './Ui/Bookmark';
 
 
 const CurrensyList = ({ searchString, setSearch }) => {
@@ -41,11 +42,14 @@ const CurrensyList = ({ searchString, setSearch }) => {
         <>
             <ul className='currensy-list'>
                 {list.slice(0, 10).map(item =>
-                    <li className='currensy-list__item' key={item.cc} onClick={() => handleCurrencyChange(item)}>
-                        <div className='currensy-list__flag'>
-                            <img src={`https://flagsapi.com/${item.cc.slice(0, -1)}/flat/64.png`}></img>
+                    <li key={item.cc}>
+                        <div className='currensy-list__item' onClick={() => handleCurrencyChange(item)}>
+                            <div className='currensy-list__flag'>
+                                <img src={`https://flagsapi.com/${item.cc.slice(0, -1)}/flat/64.png`}></img>
+                            </div>
+                            {item.txt}
                         </div>
-                        {item.txt}
+                        <Bookmark />
                     </li>
                 )}
             </ul>

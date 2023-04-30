@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setModal } from '../store/modal/modalSlice';
 import PriceField from './Ui/PriceField';
 import DateChanging from './DateChanging';
-import Loader from './Ui/Loader';
+import PriceFieldSkeleton from './Ui/PriceFieldSkeleton';
+
 
 
 const defaultBlock = () => {
@@ -36,7 +37,7 @@ const PriceBlock = ({ mutableField }) => {
 
     return (
         <div className='selected-currency'>
-            {/* <DateChanging /> */}
+            <DateChanging />
             <div className="selected-currency__title">
                 {selectedCurrency && mutableField ? `Мені потрібно: ${selectedCurrency.txt}` : 'В мене є гривня'}
             </div>
@@ -44,7 +45,7 @@ const PriceBlock = ({ mutableField }) => {
                 {selectedCurrency ?
                     <PriceField mutableField={mutableField} selected={selectedCurrency}></PriceField>
                     :
-                    <Loader />
+                    <PriceFieldSkeleton />
                 }
 
             </div>

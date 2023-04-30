@@ -3,13 +3,14 @@ import './App.css'
 
 import './assets/scss/index.scss'
 import PriceBlock from './Components/PriceBlock'
-
+import Favorites from './Components/Favorites'
 import Overlay from './Components/Overlay'
 import CurrencyServise from './Api/currency'
 
 
 import { useDispatch } from 'react-redux';
 import { setCurrency } from './store/currency/selectedCurrencySlice';
+
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
     <div className="App">
       <div className="page-title">Офіційний курс гривні <br /> щодо іноземних валют (НБУ)</div>
       <div className="selected-currency__wrapper">
+        <Favorites />
         <PriceBlock></PriceBlock>
         <PriceBlock mutableField></PriceBlock>
       </div>
