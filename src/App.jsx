@@ -1,44 +1,31 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 
 import './assets/scss/index.scss'
-import PriceBlock from './Components/PriceBlock'
-import Favorites from './Components/Favorites'
-import Overlay from './Components/Overlay'
-import CurrencyServise from './Api/currency'
 
 
 import { useDispatch } from 'react-redux';
-import { setCurrency } from './store/currency/selectedCurrencySlice';
+import { setCurrency } from './store/currencyList/selectedCurrencySlice';
+import Header from './Components/Header';
+import CurrencyFrom from './Components/CurrencyFrom';
 
 
 function App() {
 
-  const CurrencyServiseRef = useRef(new CurrencyServise());
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const getCurrency = () => {
-      CurrencyServiseRef.current.getAllCurrency()
-        // TODO перенести в api файл
-        .then(response => {
-          dispatch(setCurrency(response.filter(item => item.cc == 'USD')[0]));
-        })
-        .catch(error => {
-          console.log(`Error load ${error}`);
-        })
-    }
-    getCurrency()
-  }, [])
+
 
   return (
     <div className="App">
-      <div className="page-title">Офіційний курс гривні <br /> щодо іноземних валют (НБУ)</div>
-      <div className="selected-currency__wrapper">
-        <Favorites />
-        <PriceBlock></PriceBlock>
-        <PriceBlock mutableField></PriceBlock>
+      <Header />
+      <div className="container">
+        <h2 className='page-title text-center'>Конвертер валют</h2>
+
+        <div className="field-wrapper">
+
+          <CurrencyFrom />
+          <CurrencyFrom />
+        </div>
       </div>
-      <Overlay></Overlay>
     </div >
   )
 }

@@ -1,10 +1,10 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
-import currencyReducer from './currency/selectedCurrencySlice'
+import currencyReducer from './currencyList/selectedCurrencySlice'
 import modalReducer from './modal/modalSlice'
 
 export const store = configureStore({
   reducer: {
-    currency: currencyReducer,
+    currencyList: currencyReducer,
     modal: modalReducer
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware(),
