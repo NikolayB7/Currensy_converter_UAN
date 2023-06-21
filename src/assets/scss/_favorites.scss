@@ -1,0 +1,18 @@
+.favorites {
+    flex: 0 0 100%;
+    &__list {
+        padding-left: 15px;
+        display: flex;
+        align-items: center;
+    }
+    &__item {
+        cursor: pointer;
+        color: #ff8000;
+        font-weight: 800;
+        font-size: 13px;
+        list-style-type: none;
+        &:not(:first-child) {
+            margin-left: 10px;
+        }
+    }
+}

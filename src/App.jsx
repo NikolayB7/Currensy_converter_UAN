@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { setCurrency } from './store/currencyList/selectedCurrencySlice';
 import Header from './Components/Header';
 import CurrencyFrom from './Components/CurrencyFrom';
+import DateField from './Components/DateField';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
 
           <CurrencyFrom />
           <CurrencyFrom />
+          <DateField />
         </div>
       </div>
     </div >

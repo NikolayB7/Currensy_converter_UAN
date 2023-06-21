@@ -2,8 +2,8 @@
     padding: 30px 30px;
     background: #2b3c42;
     border-radius: 20px;
-    height: 50vh;
     display: flex;
+    flex-wrap: wrap;
     align-items: start;
     justify-content: space-between;
 }
@@ -12,13 +12,19 @@
     flex: 0 0 48%;
     position: relative;
     display: flex;
+    flex-wrap: wrap;
+    &__title {
+        padding-left: 15px;
+        color: #ff8000;
+    }
     &__wrap {
         position: relative;
-        z-index: 20;
         display: flex;
         width: 100%;
     }
     &__control {
+        position: relative;
+        z-index: 20;
         padding-left: 15px;
         color: #000000;
         font-size: 18px;
@@ -30,6 +36,7 @@
         border-radius: 20px;
     }
     &__show {
+        cursor: pointer;
         border: none;
         border-left: 1px solid #000000;
         display: flex;
@@ -39,6 +46,7 @@
         top: 8px;
         right: 0;
         bottom: 8px;
+        z-index: 20;
         display: flex;
         align-items: center;
         font-weight: bold;
@@ -49,26 +57,48 @@
     &__arrow {
         margin-left: 10px;
     }
-    &__list {
-        padding: 30px 15px 20px;
+    &__list-wrap {
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
-        transform: translate(0, calc(100% - 20px));
+        transform: translate(0, calc(100% - 30px));
         background: #121217;
+        border-radius: 0 0 10px 10px;
+
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease-in-out;
+        &.active {
+            opacity: 1;
+            height: auto;
+            transform: translate(0, calc(100% - 20px));
+        }
+    }
+    &__list {
+        padding: 30px 15px 20px;
     }
     &__list-item {
-        cursor: pointer;
         list-style-type: none;
         display: flex;
         align-items: center;
         color: #ffffff;
         font-size: 16px;
         transition: all 0.3s;
-        &:hover {
-            color: #ff8000;
+        .content {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            &:hover {
+                color: #ff8000;
+            }
         }
+        .button {
+            cursor: pointer;
+            margin-left: auto;
+        }
+
         &:not(:last-child) {
             position: relative;
             padding-bottom: 15px;
@@ -86,8 +116,5 @@
     }
     &__list-flag {
         margin-right: 15px;
-    }
-    &__list-star {
-        margin-left: auto;
     }
 }
