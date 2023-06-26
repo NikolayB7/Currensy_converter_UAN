@@ -8,7 +8,7 @@ const DateField = () => {
     const [startDate, setStartDate] = useState(new Date());
     const FieldDate = forwardRef(({ value, onClick }, ref) =>
     (
-        <div className="field__wrap">
+        <div className="field__wrap field__wrap_date">
             <input type="text" className='field__control' defaultValue={value} />
             <button className='field__show' onClick={onClick} ref={ref}>
                 <img src={calendar} alt="calendar" className='field__arrow' />

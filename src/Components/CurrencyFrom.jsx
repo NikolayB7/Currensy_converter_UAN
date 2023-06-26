@@ -1,13 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import arrowDown from "../assets/img/arrow-down.svg"
-import flag from "../assets/img/flag.jpg"
-import favoritesImg from "../assets/img/favorites.svg"
-import noFavoritesImg from "../assets/img/no-favorites.svg"
+import CurrencyListItem from './CurrencyListItem';
+import Favorites from './Favorites';
 
-const CurrencyFrom = () => {
-
+const CurrencyFrom = ({ list }) => {
     const [showList, setShowList] = useState(false)
-    const [favorites, setFavorites] = useState(false)
+
     const refOutside = useRef(null);
 
     useEffect(() => {
@@ -26,11 +24,6 @@ const CurrencyFrom = () => {
         setShowList(!showList)
     }
 
-    function addFavorites() {
-        setFavorites(!favorites)
-    }
-
-
     return (
         <div className='field' ref={refOutside}>
             <div className="field__title">From</div>
@@ -42,45 +35,12 @@ const CurrencyFrom = () => {
                 </button>
                 <div className={`field__list-wrap ${showList ? 'active' : ''}`} >
                     <ul className="field__list">
-                        <li className='field__list-item'>
-                            <div className='content'>
-                                <img src={flag} alt="flag" className='field__list-flag' />
-                                American dollar
-                            </div>
-                            <div className='button' onClick={() => addFavorites()}>
-                                <img src={favorites ? noFavoritesImg : favoritesImg} alt="favorites" className='field__list-star' />
-                            </div>
-                        </li>
-                        <li className='field__list-item'>
-                            <div className='content'>
-                                <img src={flag} alt="flag" className='field__list-flag' />
-                                American dollar
-                            </div>
-                            <div className='button'>
-                                <img src={favorites ? noFavoritesImg : favoritesImg} alt="favorites" className='field__list-star' />
-                            </div>
-                        </li>
-                        <li className='field__list-item'>
-                            <div className='content'>
-                                <img src={flag} alt="flag" className='field__list-flag' />
-                                American dollar
-                            </div>
-                            <div className='button'>
-                                <img src={favorites ? noFavoritesImg : favoritesImg} alt="favorites" className='field__list-star' />
-                            </div>
-                        </li>
+                        {list.map((item) => <CurrencyListItem key={item.r030} cur={item} />)}
                     </ul>
                 </div>
             </div>
 
-            <div className="favorites">
-                <ul className="favorites__list">
-                    <li className="favorites__item">GBR</li>
-                    <li className="favorites__item">USD</li>
-                    <li className="favorites__item">EUR</li>
-                    <li className="favorites__item">UAN</li>
-                </ul>
-            </div>
+            <Favorites />
 
         </div>
     );

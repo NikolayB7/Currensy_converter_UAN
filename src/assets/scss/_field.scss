@@ -13,6 +13,9 @@
     position: relative;
     display: flex;
     flex-wrap: wrap;
+    &:not(:last-child) {
+        margin-bottom: 20px;
+    }
     &__title {
         padding-left: 15px;
         color: #ff8000;
@@ -21,10 +24,15 @@
         position: relative;
         display: flex;
         width: 100%;
+        &_date {
+            z-index: 10;
+            .field__control {
+            }
+        }
     }
     &__control {
         position: relative;
-        z-index: 20;
+        z-index: 30;
         padding-left: 15px;
         color: #000000;
         font-size: 18px;
@@ -46,7 +54,7 @@
         top: 8px;
         right: 0;
         bottom: 8px;
-        z-index: 20;
+        z-index: 30;
         display: flex;
         align-items: center;
         font-weight: bold;
@@ -62,6 +70,7 @@
         bottom: 0;
         left: 0;
         right: 0;
+        z-index: 20;
         transform: translate(0, calc(100% - 30px));
         background: #121217;
         border-radius: 0 0 10px 10px;
@@ -78,6 +87,8 @@
     }
     &__list {
         padding: 30px 15px 20px;
+        max-height: 200px;
+        overflow-y: auto;
     }
     &__list-item {
         list-style-type: none;
@@ -101,8 +112,8 @@
 
         &:not(:last-child) {
             position: relative;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
             &:after {
                 content: "";
                 position: absolute;

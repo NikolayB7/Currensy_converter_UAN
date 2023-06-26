@@ -3,18 +3,29 @@ import './App.css'
 
 import './assets/scss/index.scss'
 
-
-import { useDispatch } from 'react-redux';
-import { setCurrency } from './store/currencyList/selectedCurrencySlice';
 import Header from './Components/Header';
 import CurrencyFrom from './Components/CurrencyFrom';
 import DateField from './Components/DateField';
-
+import CurrencyService from './Api/currency.js';
 
 function App() {
 
+  const [currencyList, setCurrencyList] = useState([])
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const currencyService = new CurrencyService();
+        const data = await currencyService.getAllCurrency();
+        console.log(data);
+        setCurrencyList(data)
+      } catch (error) {
+        console.error('Ошибка при получении данных:', error);
+      }
+    };
 
+    fetchData();
+  }, []);
   return (
     <div className="App">
       <Header />
@@ -23,8 +34,8 @@ function App() {
 
         <div className="field-wrapper">
 
-          <CurrencyFrom />
-          <CurrencyFrom />
+          <CurrencyFrom list={currencyList} />
+          <CurrencyFrom list={currencyList} />
           <DateField />
         </div>
       </div>

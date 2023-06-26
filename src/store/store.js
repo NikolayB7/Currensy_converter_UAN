@@ -1,13 +1,11 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import currencyReducer from './currencyList/selectedCurrencySlice'
-import modalReducer from './modal/modalSlice'
-
+import favoritesReducer from './favoritesSlice'
 export const store = configureStore({
   reducer: {
     currencyList: currencyReducer,
-    modal: modalReducer
+    favoriteCurrency: favoritesReducer
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware(),
   devTools: process.env.NODE_ENV !== 'production',
-
 })
