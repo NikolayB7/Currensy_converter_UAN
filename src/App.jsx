@@ -17,7 +17,6 @@ function App() {
       try {
         const currencyService = new CurrencyService();
         const data = await currencyService.getAllCurrency();
-        console.log(data);
         setCurrencyList(data)
       } catch (error) {
         console.error('Ошибка при получении данных:', error);

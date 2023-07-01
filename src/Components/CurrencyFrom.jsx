@@ -2,16 +2,22 @@ import React, { useState, useRef, useEffect } from 'react';
 import arrowDown from "../assets/img/arrow-down.svg"
 import CurrencyListItem from './CurrencyListItem';
 import Favorites from './Favorites';
+import InputField from "./Ui/InputField";
+import {useSelector} from "react-redux";
+
 
 const CurrencyFrom = ({ list }) => {
     const [showList, setShowList] = useState(false)
-
+    const [selectedCoin,setSelectedCoin] = useState({cc:'USD'})
+    const [formatting,setFormatting] = useState('text')
+    // const selectedFromCurrency = useSelector(state => state.selectedFromCurrency.selectedFrom)
     const refOutside = useRef(null);
 
     useEffect(() => {
         function handleClickOutside(event) {
             if (refOutside.current && !refOutside.current.contains(event.target)) {
                 setShowList(false)
+                setFormatting('number')
             }
         }
         document.addEventListener('click', handleClickOutside);
@@ -21,6 +27,7 @@ const CurrencyFrom = ({ list }) => {
     }, [refOutside]);
 
     const toggleCurrencyList = () => {
+        setFormatting(showList ?'number':'search')
         setShowList(!showList)
     }
 
@@ -28,14 +35,25 @@ const CurrencyFrom = ({ list }) => {
         <div className='field' ref={refOutside}>
             <div className="field__title">From</div>
             <div className="field__wrap">
-                <input type="text" className='field__control' onFocus={() => setShowList(false)} />
-                <button className='field__show' onClick={() => toggleCurrencyList()}>
-                    USD
+                <InputField
+                    format={formatting}
+                    rate={selectedCoin.rate}
+                    setShowList={setShowList}/>
+                <button
+                    className='field__show'
+                    onClick={() => toggleCurrencyList()}>
+                    {selectedCoin.cc}
                     <img src={arrowDown} alt="arrow" className='field__arrow' />
                 </button>
                 <div className={`field__list-wrap ${showList ? 'active' : ''}`} >
                     <ul className="field__list">
-                        {list.map((item) => <CurrencyListItem key={item.r030} cur={item} />)}
+                        {list.map((item) =>
+                            <CurrencyListItem
+                                key={item.r030}
+                                cur={item}
+                                getSelectedCoin={setSelectedCoin}
+                                setShowList={setShowList}/>
+                        )}
                     </ul>
                 </div>
             </div>
