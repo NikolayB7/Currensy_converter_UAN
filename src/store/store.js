@@ -7,7 +7,7 @@ import selectedFromReducer from './choiseSlice'
 export const store = configureStore({
   reducer: {
     favoriteCurrency: favoritesReducer,
-    selectedFromCurrency: selectedFromReducer,
+    selectedCurrency: selectedFromReducer,
   },
   // middleware: getDefaultMiddleware => getDefaultMiddleware(),
   // devTools: process.env.NODE_ENV !== 'production',
