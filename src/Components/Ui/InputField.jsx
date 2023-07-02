@@ -1,31 +1,29 @@
 import React, {useEffect, useState} from 'react';
+import {useSelector} from "react-redux";
+import { selectedFromCurrency,selectedToCurrency } from "../../store/choiseSlice"
 
-const InputField = ({format,holder,value,setValueField}) => {
-    // const [val, setVal] = useState("");
+const InputField = ({outField}) => {
+    const [valueField, setValueField] = useState("");
+    const currencyForm = useSelector(state => state.selectedCurrency.selectedFrom.rate).toFixed(2)
+    const currencyTo = useSelector(state => state.selectedCurrency.selectedTo.rate).toFixed(2)
 
-    // useEffect(()=>{setVal(rate)},[rate])
+    useEffect(()=>{
+        outField ? setValueField(currencyForm) : setValueField(currencyTo)
+    },[outField, currencyForm, currencyTo])
+
     const handleChange = (e) => {
         const regex = /^[0-9\b]+$/;
-        (e.target.value === "" || regex.test(e.target.value)) && setValueField(e.target.value);
+        if(e.target.value === "" || regex.test(e.target.value)){
+            setValueField(e.target.value)
+        };
     };
-    function formatValue(e) {
 
-        switch (format) {
-            case 'number':
-                handleChange(e)
-                break;
-            case 'search':
-                setValueField(e.target.value)
-                break;
-        }
-    }
     return (
         <input
             className='field__control'
-            type={format}
-            value={value}
-            placeholder={holder}
-            onChange={(e)=>formatValue(e)} />
+            type="number"
+            value={valueField}
+            onChange={(e)=>handleChange(e)} />
     );
 };
 

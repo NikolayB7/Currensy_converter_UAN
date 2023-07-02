@@ -4,45 +4,68 @@ import './App.css'
 import './assets/scss/index.scss'
 
 import Header from './Components/Header';
-import CurrencyFrom from './Components/CurrencyFrom';
+import CurrencyBlock from './Components/CurrencyBlock';
 import DateField from './Components/DateField';
 import CurrencyService from './Api/currency.js';
+import {useSelector,useDispatch} from "react-redux";
+import { selectedFromCurrency,selectedToCurrency } from "./store/choiseSlice"
 
 function App() {
 
-  const [currencyList, setCurrencyList] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const currencyService = new CurrencyService();
-        const data = await currencyService.getAllCurrency();
-        setCurrencyList(data)
-      } catch (error) {
-        console.error('Ошибка при получении данных:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+    const [currencyList, setCurrencyList] = useState([])
+    const currencyForm = useSelector(state => state.selectedCurrency.selectedFrom)
+    const currencyTo = useSelector(state => state.selectedCurrency.selectedTo)
+    const dispatch = useDispatch()
 
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const currencyService = new CurrencyService();
+                const data = await currencyService.getAllCurrency();
+                let uan = {
+                    "txt": "Українська гривня",
+                    "rate": 1,
+                    "cc": "UAN",
+                }
+                data.unshift(uan)
+                setDefaultValue(data)
+                setCurrencyList(data)
+            } catch (error) {
+                console.error('Ошибка при получении данных:', error);
+            }
+        };
 
-  return (
-    <div className="App">
-      <Header />
-      <div className="container">
-        <h2 className='page-title text-center'>Конвертер валют</h2>
+        fetchData();
+    }, []);
 
-        <div className="field-wrapper">
+    function setDefaultValue(arr) {
+        dispatch(selectedFromCurrency(arr.find(item => item.cc === 'UAN')))
+        dispatch(selectedToCurrency(arr.find(item => item.cc === 'USD')))
+    }
 
-          <CurrencyFrom list={currencyList} />
-          <CurrencyFrom list={currencyList} />
-          <DateField />
-        </div>
-      </div>
-    </div >
-  )
+    return (
+        <div className="App">
+            <Header />
+            <div className="container">
+                <h2 className='page-title text-center'>Конвертер валют</h2>
+
+                <div className="field-wrapper">
+
+                    <CurrencyBlock
+                        key={`FromField`}
+                        selected={currencyForm}
+                        list={currencyList} />
+                    <CurrencyBlock
+                        key={`ToField`}
+                        outField={false}
+                        selected={currencyTo}
+                        list={currencyList} />
+                    {/*<DateField />*/}
+                </div>
+            </div>
+        </div >
+    )
 }
 
 export default App
