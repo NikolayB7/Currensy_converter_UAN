@@ -10,14 +10,18 @@ const CurrencyFrom = ({ list }) => {
     const [showList, setShowList] = useState(false)
     const [selectedCoin,setSelectedCoin] = useState({cc:'USD'})
     const [formatting,setFormatting] = useState('text')
+    const [holder, setHolder] = useState("");
+    const [valueField, setValueField] = useState("");
     // const selectedFromCurrency = useSelector(state => state.selectedFromCurrency.selectedFrom)
     const refOutside = useRef(null);
 
+    useEffect(()=>{setValueField(selectedCoin.rate)},[selectedCoin])
     useEffect(() => {
         function handleClickOutside(event) {
             if (refOutside.current && !refOutside.current.contains(event.target)) {
                 setShowList(false)
                 setFormatting('number')
+                setHolder('Введіть число')
             }
         }
         document.addEventListener('click', handleClickOutside);
@@ -28,6 +32,7 @@ const CurrencyFrom = ({ list }) => {
 
     const toggleCurrencyList = () => {
         setFormatting(showList ?'number':'search')
+        setHolder(`Введіть ${showList ? 'число':'валюту'}`)
         setShowList(!showList)
     }
 
@@ -36,8 +41,10 @@ const CurrencyFrom = ({ list }) => {
             <div className="field__title">From</div>
             <div className="field__wrap">
                 <InputField
+                    holder={holder}
                     format={formatting}
-                    rate={selectedCoin.rate}
+                    value={valueField}
+                    setValueField={setValueField}
                     setShowList={setShowList}/>
                 <button
                     className='field__show'
@@ -47,19 +54,19 @@ const CurrencyFrom = ({ list }) => {
                 </button>
                 <div className={`field__list-wrap ${showList ? 'active' : ''}`} >
                     <ul className="field__list">
-                        {list.map((item) =>
-                            <CurrencyListItem
-                                key={item.r030}
-                                cur={item}
-                                getSelectedCoin={setSelectedCoin}
-                                setShowList={setShowList}/>
+                        {showList && (
+                            list.map((item) =>
+                                <CurrencyListItem
+                                    key={item.r030}
+                                    cur={item}
+                                    getSelectedCoin={setSelectedCoin}
+                                    setShowList={setShowList}/>
+                            )
                         )}
                     </ul>
                 </div>
             </div>
-
             <Favorites />
-
         </div>
     );
 };

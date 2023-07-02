@@ -1,23 +1,21 @@
 import React, {useEffect, useState} from 'react';
 
-const InputField = ({rate,format}) => {
-    const [val, setVal] = useState("");
-    // useEffect(()=>{
-    //     formatValue()
-    // },[format])
+const InputField = ({format,holder,value,setValueField}) => {
+    // const [val, setVal] = useState("");
+
+    // useEffect(()=>{setVal(rate)},[rate])
     const handleChange = (e) => {
         const regex = /^[0-9\b]+$/;
-        if (e.target.value === "" || regex.test(e.target.value)) {
-            setVal(e.target.value);
-        }
+        (e.target.value === "" || regex.test(e.target.value)) && setValueField(e.target.value);
     };
     function formatValue(e) {
+
         switch (format) {
             case 'number':
                 handleChange(e)
                 break;
             case 'search':
-                setVal(e.target.value)
+                setValueField(e.target.value)
                 break;
         }
     }
@@ -25,7 +23,8 @@ const InputField = ({rate,format}) => {
         <input
             className='field__control'
             type={format}
-            value={val}
+            value={value}
+            placeholder={holder}
             onChange={(e)=>formatValue(e)} />
     );
 };

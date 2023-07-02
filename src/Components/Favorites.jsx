@@ -6,7 +6,7 @@ const Favorites = () => {
     return (
         <div className="favorites">
             <ul className="favorites__list">
-                {favoritesList.map(item => <li className="favorites__item">{item.cc}</li>)}
+                {favoritesList.map(item => <li key={item.cc} className="favorites__item">{item.cc}</li>)}
             </ul>
         </div>
     );
