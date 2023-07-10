@@ -23,12 +23,12 @@ function App() {
             try {
                 const currencyService = new CurrencyService();
                 const data = await currencyService.getAllCurrency();
-                let uan = {
+                let uah = {
                     "txt": "Українська гривня",
                     "rate": 1,
-                    "cc": "UAN",
+                    "cc": "UAH",
                 }
-                data.unshift(uan)
+                data.unshift(uah)
                 setDefaultValue(data)
                 setCurrencyList(data)
             } catch (error) {
@@ -40,7 +40,7 @@ function App() {
     }, []);
 
     function setDefaultValue(arr) {
-        dispatch(selectedFromCurrency(arr.find(item => item.cc === 'UAN')))
+        dispatch(selectedFromCurrency(arr.find(item => item.cc === 'UAH')))
         dispatch(selectedToCurrency(arr.find(item => item.cc === 'USD')))
     }
 
