@@ -1,29 +1,40 @@
-import React, {useEffect, useState} from 'react';
-import {useSelector} from "react-redux";
-import { selectedFromCurrency,selectedToCurrency } from "../../store/choiseSlice"
+import React, { useEffect, useState, useRef } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { selectedToCurrency, setResultValue } from "../../store/choiseSlice"
 
-const InputField = ({outField}) => {
-    const [valueField, setValueField] = useState("");
-    const currencyForm = useSelector(state => state.selectedCurrency.selectedFrom.rate).toFixed(2)
-    const currencyTo = useSelector(state => state.selectedCurrency.selectedTo.rate).toFixed(2)
+const InputField = ({ outField }) => {
+    const currencyResult = useSelector(state => state.selectedCurrency.resultValue)
+    const currencyFrom = useSelector(state => state.selectedCurrency.selectedFrom)
+    const currencyToVal = useSelector(state => state.selectedCurrency.selectedToVal)
+    const dispatch = useDispatch()
 
-    useEffect(()=>{
-        outField ? setValueField(currencyForm) : setValueField(currencyTo)
-    },[outField, currencyForm, currencyTo])
+    const [fromValue, setFromValue] = useState('')
+    const [toValue, setToValue] = useState(currencyResult)
 
-    const handleChange = (e) => {
-        const regex = /^[0-9\b]+$/;
-        if(e.target.value === "" || regex.test(e.target.value)){
-            setValueField(e.target.value)
-        };
-    };
+    useEffect(() => {
+        setToValue(currencyResult)
+    }, [currencyResult])
+
+    const calculatePrice = (e) => {
+        let inputValue = Number(e.target.value),
+            result;
+        setFromValue(inputValue)
+        if (currencyFrom.cc === 'UAN') {
+            result = inputValue / currencyToVal
+        } else {
+            result = (inputValue / currencyFrom.rate) * currencyToVal
+        }
+        dispatch(setResultValue(result));
+
+    }
 
     return (
         <input
+            disabled={!outField}
+            value={outField ? fromValue : toValue}
             className='field__control'
             type="number"
-            value={valueField}
-            onChange={(e)=>handleChange(e)} />
+            onChange={(e) => calculatePrice(e)} />
     );
 };
 
