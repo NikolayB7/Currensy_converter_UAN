@@ -5,14 +5,16 @@ import Favorites from './Favorites';
 import InputField from "./Ui/InputField";
 
 
-const CurrencyBlock = ({ selected,outField,list }) => {
+const CurrencyBlock = ({ selected, outField, list }) => {
     const [showList, setShowList] = useState(false)
+    const [typeField, setTypeField] = useState('number')
     const refOutside = useRef(null);
 
     useEffect(() => {
         function handleClickOutside(event) {
             if (refOutside.current && !refOutside.current.contains(event.target)) {
                 setShowList(false)
+                setTypeField('number')
             }
         }
         document.addEventListener('click', handleClickOutside);
@@ -23,15 +25,17 @@ const CurrencyBlock = ({ selected,outField,list }) => {
 
     const toggleCurrencyList = () => {
         setShowList(!showList)
+        setTypeField('text')
     }
 
     return (
         <div className='field' ref={refOutside}>
-            <div className="field__title">{ outField ? 'From' : 'To'}</div>
+            <div className="field__title">{outField ? 'From' : 'To'}</div>
             <div className="field__wrap">
                 <InputField
+                    typeField={typeField}
                     outField={outField}
-                    setShowList={setShowList}/>
+                    setShowList={setShowList} />
                 <button
                     className='field__show'
                     onClick={() => toggleCurrencyList()}>
@@ -43,10 +47,11 @@ const CurrencyBlock = ({ selected,outField,list }) => {
                         {showList && (
                             list.map((item) =>
                                 <CurrencyListItem
-                                    key={`${item.cc}_${ outField ? 'From' : 'To'}`}
+                                    key={`${item.cc}_${outField ? 'From' : 'To'}`}
                                     cur={item}
                                     outField={outField}
-                                    setShowList={setShowList}/>
+                                    setShowList={setShowList}
+                                    setTypeField={setTypeField} />
                             )
                         )}
                     </ul>
@@ -57,7 +62,7 @@ const CurrencyBlock = ({ selected,outField,list }) => {
     );
 };
 
-CurrencyBlock.defaultProps ={
+CurrencyBlock.defaultProps = {
     outField: true
 }
 export default CurrencyBlock;

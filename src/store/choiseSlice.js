@@ -6,7 +6,8 @@ const choiseSlice = createSlice({
         selectedFrom: {},
         selectedTo: {},
         selectedToVal: null,
-        resultValue: 0
+        resultValue: 0,
+        search: ''
     },
     reducers: {
         selectedFromCurrency(state, action) {
@@ -19,10 +20,13 @@ const choiseSlice = createSlice({
         },
         setResultValue(state, action) {
             state.resultValue = Number(action.payload.toFixed(2))
+        },
+        setSearch(state, action) {
+            state.search = action.payload
         }
 
     }
 })
 
-export const { selectedFromCurrency, selectedToCurrency, setResultValue } = choiseSlice.actions
+export const { selectedFromCurrency, selectedToCurrency, setResultValue, setSearch } = choiseSlice.actions
 export default choiseSlice.reducer

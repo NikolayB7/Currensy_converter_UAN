@@ -7,8 +7,8 @@ import Header from './Components/Header';
 import CurrencyBlock from './Components/CurrencyBlock';
 import DateField from './Components/DateField';
 import CurrencyService from './Api/currency.js';
-import {useSelector,useDispatch} from "react-redux";
-import { selectedFromCurrency,selectedToCurrency } from "./store/choiseSlice"
+import { useSelector, useDispatch } from "react-redux";
+import { selectedFromCurrency, selectedToCurrency } from "./store/choiseSlice"
 
 function App() {
 
@@ -51,6 +51,7 @@ function App() {
                 <h2 className='page-title text-center'>Конвертер валют</h2>
 
                 <div className="field-wrapper">
+
 
                     <CurrencyBlock
                         key={`FromField`}
