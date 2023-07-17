@@ -4,7 +4,6 @@ import CurrencyListItem from './CurrencyListItem';
 import Favorites from './Favorites';
 import InputField from "./Ui/InputField";
 
-
 const CurrencyBlock = ({ selected, outField, list }) => {
     const [showList, setShowList] = useState(false)
     const [typeField, setTypeField] = useState('number')
@@ -26,6 +25,7 @@ const CurrencyBlock = ({ selected, outField, list }) => {
     const toggleCurrencyList = () => {
         setShowList(!showList)
         setTypeField('text')
+
     }
 
     return (

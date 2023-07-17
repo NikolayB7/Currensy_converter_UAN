@@ -21,13 +21,9 @@ const CurrencyListItem = ({ cur, setShowList, outField, setTypeField }) => {
     }
 
     const CreateFlag = ({ name }) => {
-        if (cur.cc.includes('EU') ||
-            cur.cc.includes('XD') ||
-            cur.cc.includes('XAU') ||
-            cur.cc.includes('XAG') ||
-            cur.cc.includes('XPT') ||
-            cur.cc.includes('XPD')) {
-            return
+        const currencies = ['EU', 'XD', 'XAU', 'XAG', 'XPT', 'XPD'];
+        if (currencies.some(currency => cur.cc.includes(currency))) {
+            return;
         }
         return (
             <img src={`https://flagsapi.com/${name.slice(0, -1)}/flat/32.png`} alt="flag" className='field__list-flag' />
