@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import compareArrow from "./assets/img/compare-arrow.svg"
 import './App.css'
 
 import './assets/scss/index.scss'
@@ -16,6 +17,9 @@ function App() {
     const currencyForm = useSelector(state => state.selectedCurrency.selectedFrom)
     const currencyTo = useSelector(state => state.selectedCurrency.selectedTo)
     const dispatch = useDispatch()
+    const [reverse, setReverse] = useState(true)
+    const search = useSelector(state => state.selectedCurrency.search)
+
 
 
     useEffect(() => {
@@ -31,13 +35,15 @@ function App() {
                 data.unshift(uah)
                 setDefaultValue(data)
                 setCurrencyList(data)
+                const searchList = data.filter(obj => obj.txt.toLowerCase().includes(search));
+                setCurrencyList(searchList)
             } catch (error) {
                 console.error('Ошибка при получении данных:', error);
             }
         };
 
         fetchData();
-    }, []);
+    }, [search]);
 
     function setDefaultValue(arr) {
         dispatch(selectedFromCurrency(arr.find(item => item.cc === 'UAH')))
@@ -52,17 +58,38 @@ function App() {
 
                 <div className="field-wrapper">
 
+                    {reverse
+                        ?
+                        <>
+                            <CurrencyBlock
+                                key={`FromField`}
+                                selected={currencyForm}
+                                list={currencyList} />
+                            <CurrencyBlock
+                                key={`ToField`}
+                                outField={false}
+                                selected={currencyTo}
+                                list={currencyList} />
+                        </>
+                        :
+                        <>
+                            <CurrencyBlock
+                                key={`ToField`}
+                                selected={currencyTo}
+                                list={currencyList} />
+                            <CurrencyBlock
+                                key={`FromField`}
+                                outField={false}
+                                selected={currencyForm}
+                                list={currencyList} />
+                        </>
+                    }
 
-                    <CurrencyBlock
-                        key={`FromField`}
-                        selected={currencyForm}
-                        list={currencyList} />
-                    <CurrencyBlock
-                        key={`ToField`}
-                        outField={false}
-                        selected={currencyTo}
-                        list={currencyList} />
-                    {/*<DateField />*/}
+                    <button className='btn btn_reverse' onClick={() => setReverse(!reverse)}>
+                        <img src={compareArrow} alt="" />
+                    </button>
+                    <DateField
+                        setCurrencyList={setCurrencyList}/>
                 </div>
             </div>
         </div >

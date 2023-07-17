@@ -9,19 +9,21 @@ const InputField = ({ typeField, outField }) => {
     const currencyToVal = useSelector(state => state.selectedCurrency.selectedToVal)
     const dispatch = useDispatch()
 
-    const [fromValue, setFromValue] = useState(0)
+    const [fromValue, setFromValue] = useState("")
     const [toValue, setToValue] = useState(currencyResult)
 
     useEffect(() => {
         setToValue(currencyResult)
     }, [currencyResult])
     useEffect(() => {
-        setFromValue(0)
-        setToValue(0)
+        if(typeField === 'number'){
+            setFromValue("")
+            setToValue("")
+        }
     }, [currencyTo, currencyFrom])
 
     const calculatePrice = (e) => {
-        setFromValue(0)
+        setFromValue("")
         let inputValue = e.target.value, result;
 
         if (inputValue.startsWith('0') && inputValue.length > 1) {
