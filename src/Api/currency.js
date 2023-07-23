@@ -1,5 +1,5 @@
 const urlAllCurrency = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json";
-const urlCurrencyDate = (date)=>{
+const urlCurrencyDate = (date) => {
     return `https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=${date}&json`;
 }
 
@@ -14,10 +14,10 @@ class CurrencyServise {
         }
         return cachedData
     }
-    async getDateCurrency(date){
+    async getDateCurrency(date) {
         const response = await fetch(urlCurrencyDate(date));
         const data = await response.json()
-        console.log(data)
+        return data;
     }
 }
 

@@ -5,10 +5,10 @@ import arrowDown from "../assets/img/arrow-down.svg"
 import calendar from "../assets/img/calendar.svg"
 import CurrencyService from '../Api/currency';
 
-const DateField = ({setCurrencyList}) => {
+const DateField = ({ setCurrencyList }) => {
     const [startDate, setStartDate] = useState(new Date());
     const currencyService = new CurrencyService();
-    const dateParse =(str)=>{
+    const dateParse = (str) => {
         const dateStr = str,
             date = new Date(dateStr),
             year = date.getFullYear(),
@@ -17,25 +17,22 @@ const DateField = ({setCurrencyList}) => {
             formattedDate = `${year}${month}${day}`;
         return formattedDate
     }
-    const getListDate = async (date)=>{
-
+    const getListDate = async (date) => {
         const response = await currencyService.getDateCurrency(dateParse(date));
-        // console.log(dateParse(date))
-        // console.log(response)
-
+        setCurrencyList(response)
         setStartDate(date)
     }
 
     const FieldDate = forwardRef(({ value, onClick }, ref) =>
-        (
-            <div className="field__wrap field__wrap_date">
-                <input type="text" className='field__control' defaultValue={value} />
-                <button className='field__show' onClick={onClick} ref={ref}>
-                    <img src={calendar} alt="calendar" className='field__arrow' />
-                    <img src={arrowDown} alt="arrow" className='field__arrow' />
-                </button>
-            </div>
-        ));
+    (
+        <div className="field__wrap field__wrap_date">
+            <input type="text" className='field__control' defaultValue={value} />
+            <button className='field__show' onClick={onClick} ref={ref}>
+                <img src={calendar} alt="calendar" className='field__arrow' />
+                <img src={arrowDown} alt="arrow" className='field__arrow' />
+            </button>
+        </div>
+    ));
 
     return (
         <DatePicker
@@ -43,8 +40,9 @@ const DateField = ({setCurrencyList}) => {
             onChange={(date) => getListDate(date)}
             customInput={<FieldDate />}
             showYearDropdown
-            peekNextMonth
-            showMonthDropdown
+            dateFormatCalendar="MMMM"
+            yearDropdownItemNumber={15}
+            scrollableYearDropdown
             wrapperClassName='field'
         />
     );
