@@ -10,6 +10,7 @@ import DateField from './Components/DateField';
 import CurrencyService from './Api/currency.js';
 import { useSelector, useDispatch } from "react-redux";
 import { selectedFromCurrency, selectedToCurrency } from "./store/choiseSlice"
+import Chart from './Components/Chart';
 
 function App() {
 
@@ -89,8 +90,11 @@ function App() {
                         <img src={compareArrow} alt="" />
                     </button>
                     <DateField
-                        setCurrencyList={setCurrencyList}/>
+                        setCurrencyList={setCurrencyList} />
                 </div>
+
+                <Chart />
+
             </div>
         </div >
     )
