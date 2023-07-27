@@ -3,25 +3,41 @@
     padding: 30px 30px;
     background: #2b3c42;
     border-radius: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    .btn_reverse {
-        order: 2;
-    }
+    // display: grid;
+    grid-template-rows: 100px;
+    grid-template-columns: 1fr 40px 1fr;
 }
 
 .field {
-    flex: 0 0 47%;
     position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    order: 3;
-    &:first-child {
-        order: 1;
+    align-self: flex-start;
+    &:nth-child(1) {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
     }
-
+    &:nth-child(2) {
+        grid-column-start: 3;
+        grid-column-end: 4;
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+    &:nth-child(4) {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+    + .btn_reverse {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        align-self: center;
+        display: flex;
+        justify-content: center;
+    }
     &:not(:last-child) {
         margin-bottom: 20px;
     }
@@ -142,7 +158,7 @@
 }
 
 @include mmax(767) {
-    .field-wrapper{
+    .field-wrapper {
         justify-content: center;
     }
     .field {
