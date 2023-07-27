@@ -39,6 +39,7 @@ const DateField = ({ setCurrencyList }) => {
             selected={startDate}
             onChange={(date) => getListDate(date)}
             customInput={<FieldDate />}
+            maxDate={new Date()}
             showYearDropdown
             dateFormatCalendar="MMMM"
             yearDropdownItemNumber={15}

@@ -1,6 +1,21 @@
 .header {
+    position: sticky;
+    top: 0;
     &__wrapper {
         background: grey;
+    }
+    &__list {
+        display: flex;
+        align-items: center;
+    }
+    &__list-item {
+        list-style-type: none;
+        &:not(:last-child) {
+            margin-right: 20px;
+        }
+    }
+    &__list-link {
+        text-decoration: none;
     }
 }
 body {

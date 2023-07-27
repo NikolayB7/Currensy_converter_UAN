@@ -7,6 +7,7 @@ import InputField from "./Ui/InputField";
 const CurrencyBlock = ({ selected, outField, list }) => {
     const [showList, setShowList] = useState(false)
     const [typeField, setTypeField] = useState('number')
+    const [holderField, setHolderField] = useState('Введіть число')
     const refOutside = useRef(null);
 
     useEffect(() => {
@@ -14,6 +15,7 @@ const CurrencyBlock = ({ selected, outField, list }) => {
             if (refOutside.current && !refOutside.current.contains(event.target)) {
                 setShowList(false)
                 setTypeField('number')
+                setHolderField('Введіть число')
             }
         }
         document.addEventListener('click', handleClickOutside);
@@ -24,8 +26,13 @@ const CurrencyBlock = ({ selected, outField, list }) => {
 
     const toggleCurrencyList = () => {
         setShowList(!showList)
-        setTypeField('text')
-
+        if (showList) {
+            setTypeField('number')
+            setHolderField('Введіть число')
+        } else {
+            setTypeField('text')
+            setHolderField('Введіть текст')
+        }
     }
 
     return (
@@ -34,6 +41,7 @@ const CurrencyBlock = ({ selected, outField, list }) => {
             <div className="field__wrap">
                 <InputField
                     typeField={typeField}
+                    holder={holderField}
                     outField={outField}
                     setShowList={setShowList} />
                 <button

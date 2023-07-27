@@ -2,11 +2,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { setResultValue, setSearch } from "../../store/choiseSlice"
 
-const InputField = ({ typeField, outField }) => {
+const InputField = ({ typeField, outField, holder }) => {
     const currencyResult = useSelector(state => state.selectedCurrency.resultValue)
     const currencyFrom = useSelector(state => state.selectedCurrency.selectedFrom)
     const currencyTo = useSelector(state => state.selectedCurrency.selectedTo)
-    const currencyToVal = useSelector(state => state.selectedCurrency.selectedToVal)
+    const currencyToVal = useSelector(state => state.selectedCurrency.selectedTo.rate)
     const dispatch = useDispatch()
 
     const [fromValue, setFromValue] = useState("")
@@ -16,7 +16,11 @@ const InputField = ({ typeField, outField }) => {
         setToValue(currencyResult)
     }, [currencyResult])
     useEffect(() => {
-        if(typeField === 'number'){
+        setFromValue("")
+        setToValue("")
+    }, [typeField])
+    useEffect(() => {
+        if (typeField === 'number') {
             setFromValue("")
             setToValue("")
         }
@@ -29,8 +33,19 @@ const InputField = ({ typeField, outField }) => {
         if (inputValue.startsWith('0') && inputValue.length > 1) {
             inputValue = inputValue.slice(1);
         }
+
         setFromValue(inputValue);
-        (currencyFrom.cc === 'UAH') ? result = inputValue / currencyToVal : result = (inputValue / currencyFrom.rate) * currencyToVal
+
+        if (currencyFrom.cc === 'UAH') {
+            result = inputValue / currencyToVal
+        }
+        if (currencyTo.cc === 'UAH') {
+            result = inputValue * currencyFrom.rate
+        }
+        if (currencyFrom.cc != 'UAH' && currencyTo.cc != 'UAH') {
+            result = (inputValue / currencyFrom.rate) * currencyToVal
+        }
+
         dispatch(setResultValue(result));
     }
 
@@ -56,10 +71,12 @@ const InputField = ({ typeField, outField }) => {
             value={outField ? fromValue : toValue}
             className='field__control'
             type={typeField}
+            placeholder={holder}
             onChange={(e) => changeField(e)} />
     );
 };
 InputField.defaultProps = {
-    typeField: 'number'
+    typeField: 'number',
+    holder: 'Введіть число'
 }
 export default InputField;

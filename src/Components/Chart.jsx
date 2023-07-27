@@ -41,17 +41,13 @@ const Chart = () => {
     //     return date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' });
     // });
     const labels = period.map((item) => item.exchangedate)
-    function getPer() {
-        console.log(period.map((item) => item.rate));
-    }
-    getPer()
+
     const data = {
         labels,
         datasets: [
             {
                 fill: true,
                 label: '7 днів',
-                // data: [10, 70, 30, 15, 50, 34, 99, 12],
                 data: period.map((item) => item.rate),
                 borderColor: '#ff8000',
                 backgroundColor: '#ff8000',
@@ -66,7 +62,7 @@ const Chart = () => {
         ],
     };
     return (
-        <div>
+        <div id='chart'>
             <Line options={options} data={data} />;
         </div>
     );

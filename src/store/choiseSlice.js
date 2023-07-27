@@ -5,28 +5,32 @@ const choiseSlice = createSlice({
     initialState: {
         selectedFrom: {},
         selectedTo: {},
-        selectedToVal: null,
         resultValue: 0,
-        search: ''
+        search: '',
+        reverse: true
     },
     reducers: {
         selectedFromCurrency(state, action) {
             state.selectedFrom = action.payload
-            state.selectedFromVal = action.payload.rate
         },
         selectedToCurrency(state, action) {
             state.selectedTo = action.payload
-            state.selectedToVal = action.payload.rate
         },
         setResultValue(state, action) {
             state.resultValue = Number(action.payload.toFixed(2))
         },
         setSearch(state, action) {
             state.search = action.payload
+        },
+        setReverseReducer(state, action) {
+            state.reverse = action.payload;
+            const temp = state.selectedFrom;
+            state.selectedFrom = state.selectedTo;
+            state.selectedTo = temp;
         }
 
     }
 })
 
-export const { selectedFromCurrency, selectedToCurrency, setResultValue, setSearch } = choiseSlice.actions
+export const { selectedFromCurrency, selectedToCurrency, setResultValue, setSearch, setReverseReducer } = choiseSlice.actions
 export default choiseSlice.reducer

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from "react-redux"
 
-const Favorites = () => {
+const Favorites = ({ sideBlock }) => {
     const favoritesList = useSelector(state => state.favoriteCurrency.favoriteFrom)
     return (
         <div className="favorites">

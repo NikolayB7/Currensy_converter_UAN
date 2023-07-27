@@ -9,8 +9,9 @@ import CurrencyBlock from './Components/CurrencyBlock';
 import DateField from './Components/DateField';
 import CurrencyService from './Api/currency.js';
 import { useSelector, useDispatch } from "react-redux";
-import { selectedFromCurrency, selectedToCurrency } from "./store/choiseSlice"
+import { selectedFromCurrency, selectedToCurrency, setReverseReducer } from "./store/choiseSlice"
 import Chart from './Components/Chart';
+import Favorites from './Components/Favorites';
 
 function App() {
 
@@ -18,10 +19,8 @@ function App() {
     const currencyForm = useSelector(state => state.selectedCurrency.selectedFrom)
     const currencyTo = useSelector(state => state.selectedCurrency.selectedTo)
     const dispatch = useDispatch()
-    const [reverse, setReverse] = useState(true)
     const search = useSelector(state => state.selectedCurrency.search)
-
-
+    const reverse = useSelector(state => state.selectedCurrency.reverse)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,7 +36,7 @@ function App() {
                 setDefaultValue(data)
                 setCurrencyList(data)
                 const searchList = data.filter(obj => obj.txt.toLowerCase().includes(search));
-                setCurrencyList(searchList)
+                searchList.length && setCurrencyList(searchList)
             } catch (error) {
                 console.error('Ошибка при получении данных:', error);
             }
@@ -50,45 +49,31 @@ function App() {
         dispatch(selectedFromCurrency(arr.find(item => item.cc === 'UAH')))
         dispatch(selectedToCurrency(arr.find(item => item.cc === 'USD')))
     }
-
+    function reverseField() {
+        dispatch(setReverseReducer(!true))
+    }
     return (
         <div className="App">
             <Header />
             <div className="container">
                 <h2 className='page-title text-center'>Конвертер валют</h2>
 
-                <div className="field-wrapper">
+                <div className="field-wrapper" id='сonverter'>
 
-                    {reverse
-                        ?
-                        <>
-                            <CurrencyBlock
-                                key={`FromField`}
-                                selected={currencyForm}
-                                list={currencyList} />
-                            <CurrencyBlock
-                                key={`ToField`}
-                                outField={false}
-                                selected={currencyTo}
-                                list={currencyList} />
-                        </>
-                        :
-                        <>
-                            <CurrencyBlock
-                                key={`ToField`}
-                                selected={currencyTo}
-                                list={currencyList} />
-                            <CurrencyBlock
-                                key={`FromField`}
-                                outField={false}
-                                selected={currencyForm}
-                                list={currencyList} />
-                        </>
-                    }
+                    <CurrencyBlock
+                        key={`FromField`}
+                        selected={currencyForm}
+                        list={currencyList} />
+                    <CurrencyBlock
+                        key={`ToField`}
+                        outField={false}
+                        selected={currencyTo}
+                        list={currencyList} />
 
-                    <button className='btn btn_reverse' onClick={() => setReverse(!reverse)}>
+                    <button className='btn btn_reverse' onClick={() => reverseField()}>
                         <img src={compareArrow} alt="" />
                     </button>
+                    <Favorites />
                     <DateField
                         setCurrencyList={setCurrencyList} />
                 </div>
