@@ -73,7 +73,7 @@ function App() {
                     <button className='btn btn_reverse' onClick={() => reverseField()}>
                         <img src={compareArrow} alt="" />
                     </button>
-                    <Favorites />
+
                     <DateField
                         setCurrencyList={setCurrencyList} />
                 </div>
