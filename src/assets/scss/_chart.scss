@@ -1,0 +1,19 @@
+.chart-period {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    &__item{
+        cursor: pointer;
+        color: #ffffff;
+        padding: 0px 20px;
+        border: 1px solid #ffffff;
+        border-radius: 10px;
+        transition: all 0.3s;
+        &:not(:last-child){
+            margin-right: 15px;
+        }
+        &:hover{
+            border: 1px solid #ff8000;
+        }
+    }
+}

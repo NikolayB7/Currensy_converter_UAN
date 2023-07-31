@@ -25,6 +25,7 @@ const CurrencyBlock = ({ selected, outField, list }) => {
     }, [refOutside]);
 
     const toggleCurrencyList = () => {
+
         setShowList(!showList)
         if (showList) {
             setTypeField('number')
@@ -57,6 +58,7 @@ const CurrencyBlock = ({ selected, outField, list }) => {
                                 <CurrencyListItem
                                     key={`${item.cc}_${outField ? 'From' : 'To'}`}
                                     cur={item}
+                                    fromField={outField}
                                     outField={outField}
                                     setShowList={setShowList}
                                     setTypeField={setTypeField} />
@@ -65,7 +67,7 @@ const CurrencyBlock = ({ selected, outField, list }) => {
                     </ul>
                 </div>
             </div>
-            <Favorites />
+            <Favorites fromField={outField} />
         </div>
     );
 };

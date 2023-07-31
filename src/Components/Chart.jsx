@@ -1,5 +1,7 @@
-import React from 'react';
-import period from "../data/period_week"
+import React, {useEffect, useState} from 'react';
+import periodWeek from "../data/period_week"
+import periodMonth from "../data/period_month"
+import periodYear from "../data/period_year"
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -12,6 +14,22 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 const Chart = () => {
+    const [period,setPeriod] = useState(periodWeek)
+    const changePeriod=(period)=>{
+        switch (period) {
+            case 'week':
+                setPeriod(periodWeek)
+                break;
+            case 'month':
+                setPeriod(periodMonth)
+                break;
+            case 'year':
+                setPeriod(periodYear)
+                break;
+
+        }
+    }
+
     ChartJS.register(
         CategoryScale,
         LinearScale,
@@ -25,11 +43,11 @@ const Chart = () => {
         responsive: true,
         plugins: {
             legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: 'Chart.js Line Chart',
+                position: 'bottom',
+                display: false,
+                onClick: function () {
+                    console.log('CLICK LEGEND')
+                }
             },
         },
     };
@@ -46,11 +64,11 @@ const Chart = () => {
         labels,
         datasets: [
             {
-                fill: true,
                 label: '7 днів',
                 data: period.map((item) => item.rate),
                 borderColor: '#ff8000',
                 backgroundColor: '#ff8000',
+
             },
             // {
             //     fill: true,
@@ -61,10 +79,18 @@ const Chart = () => {
             // },
         ],
     };
+
     return (
-        <div id='chart'>
-            <Line options={options} data={data} />;
-        </div>
+        <>
+            <div className="chart-period">
+                <div className="chart-period__item" onClick={()=>changePeriod('week')}>Тиждень</div>
+                <div className="chart-period__item" onClick={()=>changePeriod('month')}>Місяць</div>
+                <div className="chart-period__item" onClick={()=>changePeriod('year')}>Рік</div>
+            </div>
+            <div id='chart'>
+                <Line options={options} data={data} />;
+            </div>
+        </>
     );
 };
 
