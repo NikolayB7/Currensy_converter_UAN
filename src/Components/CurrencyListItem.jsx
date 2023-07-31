@@ -2,16 +2,20 @@ import React, { useState } from 'react';
 import favoritesImg from "../assets/img/favorites.svg"
 import noFavoritesImg from "../assets/img/no-favorites.svg"
 import { useDispatch } from 'react-redux';
-import { selectFavorites } from "../store/favoritesSlice"
+import { selectFromFavorites,selectToFavorites } from "../store/favoritesSlice"
 import { selectedFromCurrency, selectedToCurrency } from "../store/choiseSlice"
 
-const CurrencyListItem = ({ cur, setShowList, outField, setTypeField }) => {
+const CurrencyListItem = ({ cur, setShowList, outField, setTypeField,fromField }) => {
     const [favorites, setFavorites] = useState(false)
     const dispatch = useDispatch();
 
     function addFavorites(cur) {
         setFavorites(!favorites)
-        dispatch(selectFavorites({ cur }))
+        if(fromField){
+            dispatch(selectFromFavorites({ cur }))
+        }else{
+            dispatch(selectToFavorites({ cur }))
+        }
     }
 
     function chooseCurrency(obj) {
