@@ -4,6 +4,11 @@ const urlCurrencyDate = (date) => {
 }
 
 class CurrencyServise {
+    uah = {
+        "txt": "Українська гривня",
+        "rate": 1,
+        "cc": "UAH",
+    }
     async getAllCurrency() {
         let cachedData = JSON.parse(sessionStorage.getItem('cacheListCur'));
         if (!cachedData) {
@@ -12,11 +17,13 @@ class CurrencyServise {
             cachedData = data;
             sessionStorage.setItem('cacheListCur', JSON.stringify(data));
         }
+        cachedData.unshift(this.uah)
         return cachedData
     }
     async getDateCurrency(date) {
         const response = await fetch(urlCurrencyDate(date));
         const data = await response.json()
+        data.unshift(this.uah)
         return data;
     }
 }
