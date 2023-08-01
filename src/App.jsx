@@ -20,24 +20,18 @@ function App() {
     const currencyTo = useSelector(state => state.selectedCurrency.selectedTo)
     const dispatch = useDispatch()
     const search = useSelector(state => state.selectedCurrency.search)
-    const reverse = useSelector(state => state.selectedCurrency.reverse)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const currencyService = new CurrencyService();
                 const data = await currencyService.getAllCurrency();
-                let uah = {
-                    "txt": "Українська гривня",
-                    "rate": 1,
-                    "cc": "UAH",
-                }
-                data.unshift(uah)
                 setDefaultValue(data)
                 setCurrencyList(data)
                 const searchList = data.filter(obj => obj.txt.toLowerCase().includes(search));
                 searchList.length && setCurrencyList(searchList)
             } catch (error) {
+                alert('Ошибка получения данных')
                 console.error('Ошибка при получении данных:', error);
             }
         };
@@ -46,6 +40,7 @@ function App() {
     }, [search]);
 
     function setDefaultValue(arr) {
+        console.log(arr,'___arr')
         dispatch(selectedFromCurrency(arr.find(item => item.cc === 'UAH')))
         dispatch(selectedToCurrency(arr.find(item => item.cc === 'USD')))
     }
@@ -75,6 +70,7 @@ function App() {
                     </button>
 
                     <DateField
+                        setDefaultValue={setDefaultValue}
                         setCurrencyList={setCurrencyList} />
                 </div>
 

@@ -44,7 +44,7 @@ const CurrencyBlock = ({ selected, outField, list }) => {
                     typeField={typeField}
                     holder={holderField}
                     outField={outField}
-                    setShowList={setShowList} />
+                    showList={showList}/>
                 <button
                     className='field__show'
                     onClick={() => toggleCurrencyList()}>

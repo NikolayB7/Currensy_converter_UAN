@@ -5,7 +5,7 @@ import arrowDown from "../assets/img/arrow-down.svg"
 import calendar from "../assets/img/calendar.svg"
 import CurrencyService from '../Api/currency';
 
-const DateField = ({ setCurrencyList }) => {
+const DateField = ({ setCurrencyList,setDefaultValue }) => {
     const [startDate, setStartDate] = useState(new Date());
     const currencyService = new CurrencyService();
     const dateParse = (str) => {
@@ -20,6 +20,7 @@ const DateField = ({ setCurrencyList }) => {
     const getListDate = async (date) => {
         const response = await currencyService.getDateCurrency(dateParse(date));
         setCurrencyList(response)
+        setDefaultValue(response)
         setStartDate(date)
     }
 

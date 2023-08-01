@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { setResultValue, setSearch } from "../../store/choiseSlice"
 
-const InputField = ({ typeField, outField, holder }) => {
+const InputField = ({ typeField, outField, holder,showList }) => {
     const currencyResult = useSelector(state => state.selectedCurrency.resultValue)
     const currencyFrom = useSelector(state => state.selectedCurrency.selectedFrom)
     const currencyTo = useSelector(state => state.selectedCurrency.selectedTo)
@@ -53,7 +53,6 @@ const InputField = ({ typeField, outField, holder }) => {
         let str = e.target.value
         setFromValue(str)
         dispatch(setSearch(str))
-        console.log(str);
     }
 
     const changeField = (e) => {
@@ -62,13 +61,12 @@ const InputField = ({ typeField, outField, holder }) => {
         } else {
             findCurrency(e)
         }
-
     }
 
     return (
         <input
-            disabled={!outField}
-            value={outField ? fromValue : toValue}
+            disabled={!outField && !showList}
+            value={outField || showList ? fromValue : toValue}
             className='field__control'
             type={typeField}
             placeholder={holder}
