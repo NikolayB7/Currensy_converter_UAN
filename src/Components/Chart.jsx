@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import periodWeek from "../data/period_week"
 import periodMonth from "../data/period_month"
 import periodYear from "../data/period_year"
+import CurrencyService from '../Api/currency.js';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -14,8 +15,13 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 const Chart = () => {
+    const currencyServise = new CurrencyService()
+
     const [period,setPeriod] = useState(periodWeek)
-    const changePeriod=(period)=>{
+
+    const changePeriod= async (period)=>{
+        const response  = await currencyServise.getPeriod(period);
+        console.log(response)
         switch (period) {
             case 'week':
                 setPeriod(periodWeek)
@@ -23,7 +29,7 @@ const Chart = () => {
             case 'month':
                 setPeriod(periodMonth)
                 break;
-            case 'year':
+            case 'half-year':
                 setPeriod(periodYear)
                 break;
 
@@ -85,7 +91,7 @@ const Chart = () => {
             <div className="chart-period">
                 <div className="chart-period__item" onClick={()=>changePeriod('week')}>Тиждень</div>
                 <div className="chart-period__item" onClick={()=>changePeriod('month')}>Місяць</div>
-                <div className="chart-period__item" onClick={()=>changePeriod('year')}>Рік</div>
+                <div className="chart-period__item" onClick={()=>changePeriod('half-year')}>Півріччя</div>
             </div>
             <div id='chart'>
                 <Line options={options} data={data} />;
