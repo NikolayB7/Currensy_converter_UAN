@@ -11,7 +11,6 @@ import CurrencyService from './Api/currency.js';
 import { useSelector, useDispatch } from "react-redux";
 import { selectedFromCurrency, selectedToCurrency, setReverseReducer } from "./store/choiseSlice"
 import Chart from './Components/Chart';
-import Favorites from './Components/Favorites';
 
 function App() {
 
@@ -40,7 +39,6 @@ function App() {
     }, [search]);
 
     function setDefaultValue(arr) {
-        console.log(arr,'___arr')
         dispatch(selectedFromCurrency(arr.find(item => item.cc === 'UAH')))
         dispatch(selectedToCurrency(arr.find(item => item.cc === 'USD')))
     }
