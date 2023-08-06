@@ -65,12 +65,12 @@ class CurrencyServise {
         "cc": "UAH",
     }
     async getAllCurrency() {
-        let cachedData = JSON.parse(sessionStorage.getItem('cacheListCur'));
+        let cachedData = JSON.parse(localStorage.getItem('cacheListCur'));
         if (!cachedData) {
             const response = await fetch(urlAllCurrency);
             const data = await response.json();
             cachedData = data;
-            sessionStorage.setItem('cacheListCur', JSON.stringify(data));
+            localStorage.setItem('cacheListCur', JSON.stringify(data));
         }
         cachedData.unshift(this.uah)
         return cachedData
