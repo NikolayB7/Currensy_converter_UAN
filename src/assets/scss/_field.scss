@@ -159,10 +159,36 @@
 }
 
 @include mmax(767) {
-    .field-wrapper {
-        justify-content: center;
+    .field-wrapper{
+        grid-template-columns: 1fr;
     }
     .field {
-        flex: 0 0 100%;
+        &:nth-child(1) {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 1;
+            grid-row-end: 2;
+        }
+        &:nth-child(2) {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 3;
+            grid-row-end: 4;
+        }
+        &:nth-child(4) {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 4;
+            grid-row-end: 5;
+        }
+        + .btn_reverse {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 2;
+            grid-row-end: 3;
+            align-self: center;
+            display: flex;
+            justify-content: center;
+        }
     }
 }

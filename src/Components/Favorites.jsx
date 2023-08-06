@@ -23,7 +23,7 @@ const Favorites = ({ fromField }) => {
         <div className="favorites">
             <ul className="favorites__list">
                 {list.map(item => <li
-                    key={item.cc}
+                    key={`${item.cc}_${Math.random().toFixed(2)}`}
                     className="favorites__item"
                     onClick={()=>selectCurrency(item)}>{item.cc}</li>)}
             </ul>
