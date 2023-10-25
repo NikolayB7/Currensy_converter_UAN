@@ -21,7 +21,7 @@ const Chart = () => {
 
     const changePeriod= async (period)=>{
         const response  = await currencyServise.getPeriod(period);
-        console.log(response)
+
         switch (period) {
             case 'week':
                 setPeriod(periodWeek)
